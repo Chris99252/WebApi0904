@@ -21,6 +21,7 @@ namespace WebApi0904.Controllers
         }
 
         // GET: api/Products
+        [Route("products")]
         public IQueryable<Product> GetProduct()
         {
             return db.Product;
