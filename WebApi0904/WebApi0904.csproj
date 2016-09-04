@@ -263,7 +263,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FabricsModels.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\HandleMyError.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\MyError.cs" />
     <Compile Include="Models\Occupation.cs">
       <DependentUpon>FabricsModels.tt</DependentUpon>
     </Compile>

@@ -7,9 +7,21 @@ using System.Web.Http;
 
 namespace WebApi0904.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class ValuesController : ApiController
     {
+        [Route("jsm")]
+        public IHttpActionResult GetJsonSupportMediaType()
+        {
+            return Ok(GlobalConfiguration.Configuration.Formatters.JsonFormatter.SupportedMediaTypes);
+        }
+
+        [Route("jse")]
+        public IHttpActionResult GetJsonSupportEncodings()
+        {
+            return Ok(GlobalConfiguration.Configuration.Formatters.JsonFormatter.SupportedEncodings);
+        }
+
         // GET api/values
         public IEnumerable<string> Get()
         {
