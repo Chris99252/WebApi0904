@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
@@ -43,9 +44,45 @@ namespace WebApi0904.Controllers
         // GET: /clients/5/orders
         [ResponseType(typeof(Client))]
         [Route("clients/{id}/orders")]
+        [Route("clientsOrders/{id}")]
         public IHttpActionResult GetClientOrders(int id)
         {
             List<Order> orders = db.Order.Where(p => p.ClientId == id).ToList();
+
+            if (orders == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(orders);
+        }
+
+        // GET: /clients/5/orders/2001/11/25
+        [ResponseType(typeof(Client))]
+        [Route("clients/{id}/orders/{*date}")]
+        public IHttpActionResult GetClientOrders(int id, DateTime date)
+        {
+            List<Order> orders = db.Order
+                .Where(p => p.ClientId == id
+                && p.OrderDate.Value.Year == date.Year
+                && p.OrderDate.Value.Month == date.Month
+                && p.OrderDate.Value.Day == date.Day).ToList();
+
+            if (orders == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(orders);
+        }
+
+        // GET: /clients/5/orders/pending
+        [ResponseType(typeof(Client))]
+        [Route("clients/{id}/orders/pending")]
+        public IHttpActionResult GetClientOrdersPending(int id)
+        {
+            List<Order> orders = db.Order
+                .Where(p => p.ClientId == id && p.OrderStatus == "P").ToList();
 
             if (orders == null)
             {
