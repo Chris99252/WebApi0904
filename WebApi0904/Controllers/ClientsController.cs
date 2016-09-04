@@ -11,6 +11,8 @@ using WebApi0904.Models;
 
 namespace WebApi0904.Controllers
 {
+    // 前置詞
+    [RoutePrefix("clients")]
     public class ClientsController : ApiController
     {
         private FabricsEntities db = new FabricsEntities();
@@ -21,7 +23,7 @@ namespace WebApi0904.Controllers
         }
 
         // GET: api/Clients
-        [Route("clients")]
+        [Route("")]
         public IQueryable<Client> GetClient()
         {
             return db.Client;
@@ -29,7 +31,7 @@ namespace WebApi0904.Controllers
 
         // GET: api/Clients/5
         [ResponseType(typeof(Client))]
-        [Route("clients/{id}")]
+        [Route("{id}")]
         public IHttpActionResult GetClient(int id)
         {
             Client client = db.Client.Find(id);
@@ -43,8 +45,8 @@ namespace WebApi0904.Controllers
 
         // GET: /clients/5/orders
         [ResponseType(typeof(Client))]
-        [Route("clients/{id}/orders")]
-        [Route("clientsOrders/{id}")]
+        [Route("{id}/orders")]
+        [Route("~/ClientOrders/{id}")] // 保留原本路由
         public IHttpActionResult GetClientOrders(int id)
         {
             List<Order> orders = db.Order.Where(p => p.ClientId == id).ToList();
@@ -59,7 +61,7 @@ namespace WebApi0904.Controllers
 
         // GET: /clients/5/orders/2001/11/25
         [ResponseType(typeof(Client))]
-        [Route("clients/{id}/orders/{*date}")]
+        [Route("{id}/orders/{*date:datetime}")]
         public IHttpActionResult GetClientOrders(int id, DateTime date)
         {
             List<Order> orders = db.Order
@@ -78,7 +80,7 @@ namespace WebApi0904.Controllers
 
         // GET: /clients/5/orders/pending
         [ResponseType(typeof(Client))]
-        [Route("clients/{id}/orders/pending")]
+        [Route("{id}/orders/pending")]
         public IHttpActionResult GetClientOrdersPending(int id)
         {
             List<Order> orders = db.Order
