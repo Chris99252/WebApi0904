@@ -31,7 +31,7 @@ namespace WebApi0904.Controllers
 
         // GET: api/Clients/5
         [ResponseType(typeof(Client))]
-        [Route("{id}", Name="GetClientById")]
+        [Route("{id}", Name = "GetClientById")]
         public IHttpActionResult GetClient(int id)
         {
             Client client = db.Client.Find(id);
@@ -96,6 +96,7 @@ namespace WebApi0904.Controllers
 
         // PUT: api/Clients/5
         [ResponseType(typeof(void))]
+        [Route("{id}")]
         public IHttpActionResult PutClient(int id, Client client)
         {
             if (!ModelState.IsValid)
@@ -147,6 +148,7 @@ namespace WebApi0904.Controllers
 
         // DELETE: api/Clients/5
         [ResponseType(typeof(Client))]
+        [Route("{id}")]
         public IHttpActionResult DeleteClient(int id)
         {
             Client client = db.Client.Find(id);
