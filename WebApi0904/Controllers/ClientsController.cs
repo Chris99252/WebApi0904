@@ -6,6 +6,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Web.Http;
 using System.Web.Http.Description;
 using WebApi0904.Models;
@@ -36,22 +37,38 @@ namespace WebApi0904.Controllers
             return Ok(db.Client);
         }
 
-[Route("get2")]
-public HttpResponseMessage GetClient2()
-{
-    return new HttpResponseMessage()
-    {
-        StatusCode = HttpStatusCode.OK,
-        Content = new ObjectContent<IQueryable<Client>>(db.Client, GlobalConfiguration.Configuration.Formatters.JsonFormatter),
-        ReasonPhrase = "VERY OK"
-    };
-}
+        [Route("get2")]
+        public HttpResponseMessage GetClient2()
+        {
+            return new HttpResponseMessage()
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new ObjectContent<IQueryable<Client>>(db.Client, GlobalConfiguration.Configuration.Formatters.JsonFormatter),
+                ReasonPhrase = "VERY OK"
+            };
+        }
 
-[Route("get3")]
-public HttpResponseMessage GetClient3()
-{
-    return Request.CreateResponse(HttpStatusCode.OK, db.Client);
-}
+        [Route("get3")]
+        public HttpResponseMessage GetClient3()
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, db.Client);
+        }
+
+        [Route("getString1")]
+        public string GetClient4()
+        {
+            return "熊貓克里斯";
+        }
+
+        [Route("getString2")]
+        public HttpResponseMessage GetClient5()
+        {
+            return new HttpResponseMessage()
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent("熊貓克里斯", Encoding.GetEncoding("Big5")),
+            };
+        }
 
         // GET: api/Clients/5
         [ResponseType(typeof(Client))]
