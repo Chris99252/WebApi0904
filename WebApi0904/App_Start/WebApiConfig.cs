@@ -1,5 +1,6 @@
 ﻿using Microsoft.Owin.Security.OAuth;
 using System.Web.Http;
+using WebApi0904.Models;
 
 namespace WebApi0904
 {
@@ -11,6 +12,7 @@ namespace WebApi0904
             // 將 Web API 設定成僅使用 bearer 權杖驗證。
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
+            config.Filters.Add(new CheckModelStateAttribute());
 
             // Web API 路由
             config.MapHttpAttributeRoutes();

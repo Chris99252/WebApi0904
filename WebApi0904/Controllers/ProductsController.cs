@@ -79,10 +79,10 @@ namespace WebApi0904.Controllers
         [ResponseType(typeof(void))]
         public IHttpActionResult PatchProduct(int id, [FromUri]ProductVM model)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
 
             var product = db.Product.Find(id);
 
